@@ -1,0 +1,44 @@
+{% extends 'news/base.html' %}
+{% block title %}{{ article.title }} - StockNews{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <article class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+                <h1 class="text-2xl font-bold text-gray-900">{{ article.title }}</h1>
+                <div class="text-sm text-gray-500">
+                    <span>{{ article.source }}</span>
+                    <span class="text-gray-400">•</span>
+                    <span>{{ article.published_at|date:"F j, Y" }}</span>
+                </div>
+            </div>
+
+            <div class="mt-4 space-y-4">
+                <div class="flex items-center space-x-3">
+                    {% for company in article.companies.all %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                        {{ company.symbol }}
+                    </span>
+                    {% endfor %}
+                </div>
+
+                <div class="text-gray-600">
+                    {{ article.content|linebreaks }}
+                </div>
+
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-sm font-semibold text-gray-900 mb-2">AI Summary</h3>
+                    <p class="text-gray-600">{{ article.summary }}</p>
+                </div>
+
+                <div class="mt-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {% if article.sentiment == 'POSITIVE' %}bg-green-100 text-green-800{% elif article.sentiment == 'NEGATIVE' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {{ article.sentiment }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+{% endblock %}
