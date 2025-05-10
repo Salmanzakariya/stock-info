@@ -20,7 +20,7 @@ import wikipedia
 logger = logging.getLogger(__name__)
 
 # News API Key
-NEWS_API_KEY = 'f101063abfc44c73917f5f5856d33dbd'  # Updated News API key
+NEWS_API_KEY = 'YOUR API KEY'  # Updated News API key
 
 def generate_price_graph(hist):
     try:
